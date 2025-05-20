@@ -331,3 +331,4 @@ class SamplerWorker(mp.Process):
             self.envs.reset_task(task)
             self.sample(index, **kwargs)
             self.task_queue.task_done()
+

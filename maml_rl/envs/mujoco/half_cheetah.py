@@ -19,16 +19,25 @@ class HalfCheetahEnv(HalfCheetahEnv_):
         # Hide the overlay
         self.viewer._hide_overlay = True
 
+    # def render(self, mode='human'):
+    #     if mode == 'rgb_array':
+    #         self._get_viewer().render()
+    #         # window size used for old mujoco-py:
+    #         width, height = 500, 500
+    #         data = self._get_viewer().read_pixels(width, height, depth=False)
+    #         return data
+    #     elif mode == 'human':
+    #         self._get_viewer().render()
     def render(self, mode='human'):
-        if mode == 'rgb_array':
-            self._get_viewer().render()
-            # window size used for old mujoco-py:
-            width, height = 500, 500
-            data = self._get_viewer().read_pixels(width, height, depth=False)
-            return data
-        elif mode == 'human':
-            self._get_viewer().render()
+        viewer = self._get_viewer(mode)
 
+        if mode == 'rgb_array':
+            viewer.render(width=500, height=500)  # <-- fix here
+            return viewer.read_pixels(500, 500, depth=False)
+        elif mode == 'human':
+            viewer.render(width=500, height=500)  # <-- fix here
+
+    
 
 class HalfCheetahVelEnv(HalfCheetahEnv):
     """Half-cheetah environment with target velocity, as described in [1]. The 
